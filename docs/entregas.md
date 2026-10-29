@@ -6,7 +6,7 @@ Cada hito (E1, E2…) se entrega con una **rama de entrega** y un **Pull Request
 
 - `master` solo tiene lo que el docente ya aprobó.
 - **Nadie hace commit directo en `master` ni en una rama `entrega/`.** Todo el trabajo va en ramas de trabajo que entran por Pull Request.
-- `master` y `entrega/*` están protegidas en GitHub (se configura en el [laboratorio 1](../labs/01-entorno.md)): cualquier push directo se rechaza y cada PR necesita la aprobación de otra persona.
+- `master` y `entrega/*` están protegidas en GitHub (se configura en el [laboratorio 1](../labs/FDS1/01-entorno.md)): cualquier push directo se rechaza y cada PR necesita la aprobación de otra persona.
 - Los PR de trabajo los aprueba **otro integrante del equipo**. Los PR de entrega hacia `master` los aprueba y une **solo el docente**.
 
 ## Convención de nombres de ramas

@@ -23,7 +23,7 @@ No usen *Fork*: en un fork, los Pull Requests apuntan por defecto a la plantilla
    - **Create**.
 3. Repetir el paso anterior con el patrón `entrega/*`.
 
-Desde ahora GitHub rechaza cualquier push directo a `master` o a `entrega/e1`: todo entra por un Pull Request aprobado por otra persona. La convención de nombres de ramas está en [docs/entregas.md](../docs/entregas.md).
+Desde ahora GitHub rechaza cualquier push directo a `master` o a `entrega/e1`: todo entra por un Pull Request aprobado por otra persona. La convención de nombres de ramas está en [docs/entregas.md](../../docs/entregas.md).
 
 ### 3. Clonar y crear el entorno (todos)
 En Windows, clonen en una carpeta de ruta corta, por ejemplo `C:\mlops\`. Las rutas muy largas hacen fallar a DVC.

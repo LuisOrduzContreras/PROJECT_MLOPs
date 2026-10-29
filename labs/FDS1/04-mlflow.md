@@ -115,7 +115,7 @@ En GitHub: **Pull requests › New pull request**, con `base: entrega/e1` ← `c
 3. Título: `Entrega E1 · <nombre del equipo>`. Esta vez dejen la plantilla: marquen el checklist y arrastren las dos capturas al cuadro de texto.
 4. **Create pull request.** Nadie del equipo lo aprueba ni hace merge: lo aprueba y lo une el docente en la verificación.
 
-Detalle en [docs/entregas.md](../docs/entregas.md).
+Detalle en [docs/entregas.md](../../docs/entregas.md).
 
 ## Listo cuando
 - [ ] Hay al menos 3 runs en el experimento del equipo.
