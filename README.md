@@ -1,13 +1,13 @@
-# Proyecto integrador · [nombre del equipo]
+# Proyecto integrador · Equipo Online Shopper
 
 Curso Despliegue y monitoreo de Machine Learning.
 
 | | |
 |---|---|
-| Dataset | [nombre y enlace] |aaaaa
-| Pregunta de negocio | [¿qué se quiere predecir y para qué?] |
-| Métrica de éxito | [por ejemplo, F1 de al menos __] |
-| Integrantes y roles | [ML engineer · Platform engineer · Calidad y documentación] |
+| Dataset | [Online Shoppers](https://archive.ics.uci.edu/dataset/468/online+shoppers+purchasing+intention+dataset) (UCI): 12 330 sesiones de una tienda online, 17 variables |
+| Pregunta de negocio | ¿Una sesión de navegación terminará en compra (`Revenue`)? Sirve para dirigir promociones o ayuda en tiempo real a las sesiones con alta probabilidad de comprar. |
+| Métrica de éxito | F1 macro de al menos 0.75 en test (las clases están desbalanceadas: ~15 % de las sesiones compran). Actual: F1 macro 0.78 · accuracy 0.89 |
+| Integrantes y roles | Melani Tirado · [Colaborador] <br> Luis Orduz · [Colaborador] <br> Yirleidis Marquez · [Colaborador] |
 
 ## Cómo reproducir
 ```bash
