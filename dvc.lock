@@ -33,18 +33,18 @@ stages:
       nfiles: 2
     - path: src/train.py
       hash: md5
-      md5: 852e7907bdd0fe6390c96ed416092287
-      size: 729
+      md5: 22bf03d14c00a4b0d1781dcae5c96c90
+      size: 1576
     params:
       params.yaml:
         train:
-          n_estimators: 100
-          max_depth: 5
+          n_estimators: 180
+          max_depth: 16
     outs:
     - path: models/model.pkl
       hash: md5
-      md5: 5b2788cc7ef9eed08c69b939136c744c
-      size: 514105
+      md5: c19cbe8d0fcee43291e3d2ce5cad4d57
+      size: 20916665
   evaluate:
     cmd: python src/evaluate.py
     deps:
@@ -55,8 +55,8 @@ stages:
       nfiles: 2
     - path: models/model.pkl
       hash: md5
-      md5: 5b2788cc7ef9eed08c69b939136c744c
-      size: 514105
+      md5: c19cbe8d0fcee43291e3d2ce5cad4d57
+      size: 20916665
     - path: src/evaluate.py
       hash: md5
       md5: 7783f305ff398367ebf3038438385537
@@ -64,5 +64,5 @@ stages:
     outs:
     - path: metrics.json
       hash: md5
-      md5: 38aa194a28ff5be9a48c74bcc3e346d7
+      md5: dbfb008b88a46a7ad7697dc6911073d6
       size: 49
