@@ -4,7 +4,7 @@ Curso Despliegue y monitoreo de Machine Learning.
 
 | | |
 |---|---|
-| Dataset | [nombre y enlace] |
+| Dataset | [nombre y enlace] |aaaaa
 | Pregunta de negocio | [¿qué se quiere predecir y para qué?] |
 | Métrica de éxito | [por ejemplo, F1 de al menos __] |
 | Integrantes y roles | [ML engineer · Platform engineer · Calidad y documentación] |
@@ -18,7 +18,7 @@ dvc repro
 
 ## Estructura
 ```
-data/raw/        dataset original (versionado con DVC)
+data/raw/        dataset original (versionado con DVC) 
 data/prepared/   salida de la etapa prepare
 models/          modelo entrenado
 src/             scripts de cada etapa
