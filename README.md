@@ -18,7 +18,7 @@ dvc repro
 
 ## Estructura
 ```
-data/raw/        dataset original (versionado con DVC) 
+data/raw/        dataset original (versionado con DVC) git
 data/prepared/   salida de la etapa prepare
 models/          modelo entrenado
 src/             scripts de cada etapa
@@ -35,3 +35,4 @@ Cada hito se entrega con una rama `entrega/eN` y un Pull Request hacia `master`.
 2. [Versionar el dataset con DVC](labs/FDS1/02-dvc.md)
 3. [Pipeline reproducible](labs/FDS1/03-pipeline.md)
 4. [MLflow en el pipeline](labs/FDS1/04-mlflow.md)
+hola como estas
