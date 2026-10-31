@@ -1,6 +1,5 @@
 prepare:
-  target: Churn                # columna que se quiere predecir
-  drop_columns: [customerID]   # identificadores o columnas que no aportan
+  target: Revenue               # columna que se quiere predecir   # identificadores o columnas que no aportan
   test_size: 0.2
   random_state: 42
 
