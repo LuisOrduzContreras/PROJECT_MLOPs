@@ -4,8 +4,8 @@ prepare:
   random_state: 42
 
 train:
-  n_estimators: 120
-  max_depth: 10
+  n_estimators: 180
+  max_depth: 16
 
 mlflow:
   experiment: integrador-equipo-online-shopper
