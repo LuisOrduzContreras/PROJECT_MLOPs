@@ -4,7 +4,7 @@ prepare:
   random_state: 42
 
 train:
-  n_estimators: 200
+  n_estimators: 120
   max_depth: 10
 
 mlflow:

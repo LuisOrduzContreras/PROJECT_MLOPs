@@ -25,11 +25,25 @@ data/raw/online_shoppers_intention.csv → prepare → data/prepared → train �
 
 | Archivo | Qué contiene |
 |---|---|
-| `params.yaml` | Parámetros del pipeline: `target: Revenue`, `test_size: 0.2`, `random_state: 42`, `n_estimators: 200`, `max_depth: 10`, y el experimento y modelo de MLflow |
+| `params.yaml` | Parámetros del pipeline: `target: Revenue`, `test_size: 0.2`, `random_state: 42`, `n_estimators: 120`, `max_depth: 10` (los del modelo `champion`), y el experimento y modelo de MLflow |
 | `dvc.lock` | Hash de cada entrada, salida y parámetro de la última ejecución; DVC lo usa para saber qué etapas volver a correr |
-| `metrics.json` | Métricas del modelo en test: **accuracy 0.8933 · F1 macro 0.7803** (cumple la meta ≥ 0.75) |
+| `metrics.json` | Métricas del modelo en test: **accuracy 0.8942 · F1 macro 0.7814** (cumple la meta ≥ 0.75) |
 
-Cada ejecución de `train` queda registrada en MLflow (experimento `integrador-equipo-online-shopper`, modelo `modelo-equipo-online-shopper`). Para verlo:
+## Experimentos en MLflow
+Cada ejecución de `train` queda registrada en MLflow con sus parámetros, métricas, el modelo y la etiqueta `data_md5` (versión del dataset según DVC).
+
+- Experimento: `integrador-equipo-online-shopper` · 16 runs, probando `n_estimators` entre 100 y 200 y `max_depth` 5, 6, 10 y 16.
+- Modelo registrado: `modelo-equipo-online-shopper`, con alias **`champion` en la versión 3**.
+
+| | `n_estimators` | `max_depth` | accuracy | F1 macro |
+|---|---|---|---|---|
+| **champion (v3)** | 120 | 10 | **0.8942** | 0.7814 |
+| mejor F1 (v7) | 180 | 16 | 0.8933 | 0.7849 |
+| peor (v9) | 120 | 5 | 0.8840 | 0.7239 |
+
+Se eligió la v3 como champion porque tiene la mejor accuracy con menos árboles que las demás combinaciones con el mismo resultado. Con `max_depth` 5 o 6 el F1 macro cae por debajo de la meta.
+
+Para verlo:
 ```bash
 mlflow ui --backend-store-uri sqlite:///mlflow.db
 ```
