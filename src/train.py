@@ -19,10 +19,15 @@ test = pd.read_csv("data/prepared/test.csv")
 X_train, y_train = train.drop(columns=[target]), train[target]
 X_test, y_test = test.drop(columns=[target]), test[target]
 
+# Versión del dataset según DVC: queda como etiqueta del run
+dvc_file = yaml.safe_load(open("data/raw/online_shoppers_intention.csv.dvc", encoding="utf-8"))
+data_md5 = dvc_file["outs"][0]["md5"]
+
 mlflow.set_tracking_uri("sqlite:///mlflow.db")
 mlflow.set_experiment(cfg["experiment"])
 
 with mlflow.start_run():
+    mlflow.set_tag("data_md5", data_md5)
     mlflow.log_params(p)
 
     model = RandomForestClassifier(
