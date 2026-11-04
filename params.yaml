@@ -1,5 +1,5 @@
 prepare:
-  target: Revenue                # columna que se quiere predecir   # identificadores o columnas que no aportan
+  target: Revenue              # columna que se quiere predecir (compra: True/False)
   test_size: 0.2
   random_state: 42
 
@@ -8,5 +8,5 @@ train:
   max_depth: 10
 
 mlflow:
-  experiment: integrador-equipo-online-shopper   # cambiar X por el nombre del equipo
+  experiment: integrador-equipo-online-shopper
   model_name: modelo-equipo-online-shopper
