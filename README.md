@@ -1,13 +1,13 @@
-# Proyecto integrador · [nombre del equipo]
+# Proyecto integrador · Equipo Online Shopper
 
 Curso Despliegue y monitoreo de Machine Learning.
 
 | | |
 |---|---|
-| Dataset | [nombre y enlace] |aaaaa
-| Pregunta de negocio | [¿qué se quiere predecir y para qué?] |
-| Métrica de éxito | [por ejemplo, F1 de al menos __] |
-| Integrantes y roles | [ML engineer · Platform engineer · Calidad y documentación] |
+| Dataset | [Online Shoppers Purchasing Intention](https://archive.ics.uci.edu/dataset/468/online+shoppers+purchasing+intention+dataset) (UCI) · `data/raw/online_shoppers_intention.csv`: 12 330 sesiones de una tienda online, 17 variables + `Revenue` |
+| Pregunta de negocio | ¿Una sesión de navegación terminará en compra (`Revenue`)? Sirve para dirigir promociones o ayuda en tiempo real a las sesiones con alta probabilidad de comprar. |
+| Métrica de éxito | F1 macro ≥ 0.75 en test (clases desbalanceadas: 15.5 % de las sesiones compran) |
+| Integrantes y roles | **Melani Tirado** · versionado del dataset con DVC, remote y registro en MLflow <br> **Luis Orduz** · pipeline de tres etapas (`dvc.yaml`) y revisión de PR <br> **Andrea Marquez** · revisión y aprobación de PR |
 
 ## Cómo reproducir
 ```bash
@@ -16,15 +16,49 @@ dvc pull
 dvc repro
 ```
 
+## Pipeline y resultados
+`dvc repro` ejecuta tres etapas definidas en `dvc.yaml`:
+
+```
+data/raw/online_shoppers_intention.csv → prepare → data/prepared → train → models/model.pkl → evaluate → metrics.json
+```
+
+| Archivo | Qué contiene |
+|---|---|
+| `params.yaml` | Parámetros del pipeline: `target: Revenue`, `test_size: 0.2`, `random_state: 42`, `n_estimators: 180`, `max_depth: 16` (los del modelo `champion`), y el experimento y modelo de MLflow |
+| `dvc.lock` | Hash de cada entrada, salida y parámetro de la última ejecución; DVC lo usa para saber qué etapas volver a correr |
+| `metrics.json` | Métricas del modelo en test: **accuracy 0.8933 · F1 macro 0.7849** (cumple la meta ≥ 0.75) |
+
+## Experimentos en MLflow
+Cada ejecución de `train` queda registrada en MLflow con sus parámetros, métricas, el modelo y la etiqueta `data_md5` (versión del dataset según DVC).
+
+- Experimento: `integrador-equipo-online-shopper` · 17 runs, probando `n_estimators` entre 100 y 200 y `max_depth` 5, 6, 10 y 16.
+- Modelo registrado: `modelo-equipo-online-shopper`, con alias **`champion` en la versión 7**.
+
+| | `n_estimators` | `max_depth` | accuracy | F1 macro |
+|---|---|---|---|---|
+| **champion (v7)** | 180 | 16 | 0.8933 | **0.7849** |
+| mejor accuracy (v3) | 120 | 10 | 0.8942 | 0.7814 |
+| peor (v9) | 120 | 5 | 0.8840 | 0.7239 |
+
+Se eligió la v7 como champion porque tiene el mejor F1 macro, que es la métrica de éxito del proyecto: con clases desbalanceadas, el F1 macro refleja mejor que la accuracy cómo se detectan las sesiones que sí compran. Con `max_depth` 5 o 6 el F1 macro cae por debajo de la meta.
+
+Para verlo:
+```bash
+mlflow ui --backend-store-uri sqlite:///mlflow.db
+```
+
 ## Estructura
 ```
-data/raw/        dataset original (versionado con DVC) 
+data/raw/        dataset original (versionado con DVC)
 data/prepared/   salida de la etapa prepare
 models/          modelo entrenado
-src/             scripts de cada etapa
+src/             scripts de cada etapa (prepare.py, train.py, evaluate.py)
 labs/            guías de los laboratorios, una carpeta por fin de semana (FDS1, FDS2, FDS3)
 params.yaml      parámetros del pipeline
-dvc.yaml         definición del pipeline (se crea en el laboratorio 3)
+dvc.yaml         definición del pipeline
+dvc.lock         estado de la última ejecución del pipeline
+metrics.json     métricas del modelo en test
 ```
 
 ## Entregas

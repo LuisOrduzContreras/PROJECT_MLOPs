@@ -1,0 +1,68 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python src/prepare.py
+    deps:
+    - path: data/raw/online_shoppers_intention.csv
+      hash: md5
+      md5: cc6ec1db03b4f10f8de52c56ff48b085
+      size: 1072063
+    - path: src/prepare.py
+      hash: md5
+      md5: 133deefddcf8a25e6e3baeb3b4438ec0
+      size: 1312
+    params:
+      params.yaml:
+        prepare:
+          target: Revenue
+          test_size: 0.2
+          random_state: 42
+    outs:
+    - path: data/prepared
+      hash: md5
+      md5: 71d0ace67b3844374666acfff9c214c4.dir
+      size: 1180656
+      nfiles: 2
+  train:
+    cmd: python src/train.py
+    deps:
+    - path: data/prepared
+      hash: md5
+      md5: 71d0ace67b3844374666acfff9c214c4.dir
+      size: 1180656
+      nfiles: 2
+    - path: src/train.py
+      hash: md5
+      md5: 431bd56ff45f6f8168b48703625fadaf
+      size: 1820
+    params:
+      params.yaml:
+        train:
+          n_estimators: 180
+          max_depth: 16
+    outs:
+    - path: models/model.pkl
+      hash: md5
+      md5: c19cbe8d0fcee43291e3d2ce5cad4d57
+      size: 20916665
+  evaluate:
+    cmd: python src/evaluate.py
+    deps:
+    - path: data/prepared
+      hash: md5
+      md5: 71d0ace67b3844374666acfff9c214c4.dir
+      size: 1180656
+      nfiles: 2
+    - path: models/model.pkl
+      hash: md5
+      md5: c19cbe8d0fcee43291e3d2ce5cad4d57
+      size: 20916665
+    - path: src/evaluate.py
+      hash: md5
+      md5: 7783f305ff398367ebf3038438385537
+      size: 698
+    outs:
+    - path: metrics.json
+      hash: md5
+      md5: dbfb008b88a46a7ad7697dc6911073d6
+      size: 49
